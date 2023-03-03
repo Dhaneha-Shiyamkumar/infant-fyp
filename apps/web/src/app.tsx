@@ -1,9 +1,16 @@
-export function App() {
+import { BrowserRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import ThemeProvider from './theme';
+import Router from './routes';
+
+export default function App() {
   return (
-    <>
-      <p> helo world</p>
-    </>
+    <HelmetProvider>
+      <BrowserRouter>
+        <ThemeProvider>
+          <Router />
+        </ThemeProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
-
-export default App;
