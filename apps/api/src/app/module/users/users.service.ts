@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { UserLoginDto } from '../auth/dto/login.dto';
 import * as bcrypt from 'bcrypt';
 import { User, UserDocument } from './schema/users.schema';
-import { IUser, IUserCreate } from './user.interface';
+import { IUser, IUserCreate } from '@neha-project/types';
 
 @Injectable()
 export class UsersService {
