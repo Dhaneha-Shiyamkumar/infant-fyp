@@ -1,14 +1,12 @@
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-import { useUsers } from '../../hooks/users/useUsers';
 import { CircularProgress } from '@mui/material';
+import { useChildren } from '../../hooks/children/use-children';
 import { useNavigate } from 'react-router-dom';
 
 const columns: GridColDef[] = [
   { field: '_id', headerName: 'ID', width: 70 },
   { field: 'firstName', headerName: 'First name', width: 130 },
   { field: 'lastName', headerName: 'Last name', width: 130 },
-  { field: 'email', headerName: 'Email', width: 130 },
-  { field: 'role', headerName: 'Role', width: 130 },
   {
     field: 'fullName',
     headerName: 'Full name',
@@ -20,8 +18,8 @@ const columns: GridColDef[] = [
   },
 ];
 
-export default function UserDataTable() {
-  const users = useUsers();
+export default function ChildrenTable() {
+  const users = useChildren();
   const navigate = useNavigate();
 
   return (
@@ -45,11 +43,11 @@ export default function UserDataTable() {
               },
             },
           }}
+          onCellClick={(data) => {
+            navigate(`/dashboard/child/${data.id}`);
+          }}
           onPaginationModelChange={(data) => {
             console.log(data);
-          }}
-          onCellClick={(data) => {
-            navigate(`/dashboard/user/${data.id}`);
           }}
           pageSizeOptions={[5, 20, 100]}
           checkboxSelection

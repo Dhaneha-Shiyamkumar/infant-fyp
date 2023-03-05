@@ -10,5 +10,5 @@ const API = {
   },
 };
 
-export const REACT_QUERY_NAME = 'chilren';
+export const REACT_QUERY_NAME = 'children';
 export default API;

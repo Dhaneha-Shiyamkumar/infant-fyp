@@ -40,7 +40,8 @@ export async function request(
     metadata.path = metadata.path.replace(`:${token}`, `${data[token]}`);
   });
 
-  const backEndUrl = `${url}${metadata.path}`;
+  console.log(url);
+  const backEndUrl = `${url}/${metadata.path}`;
 
   const formData = new FormData();
   if (isFormData) {

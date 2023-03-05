@@ -3,6 +3,7 @@ import { Box, Card, CardHeader, Grid, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { Helmet } from 'react-helmet-async';
 import { AppConfig } from '../config';
+import ChildrenTable from '../layouts/children-table';
 import UserDataTable from '../layouts/user-table';
 
 const HomePage = () => {
@@ -38,7 +39,7 @@ const HomePage = () => {
             <Card>
               <CardHeader title={'Infant ID information'} />
               <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-                <UserDataTable />
+                <ChildrenTable />
               </Box>
             </Card>
           </Grid>
