@@ -11,7 +11,6 @@ import { AuthGuard } from '@nestjs/passport/dist/auth.guard';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import { getCurrentUser } from './current-user.decorator';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UserLoginDto } from './dto/login.dto';
 
 @Controller('auth')
@@ -34,17 +33,6 @@ export class AuthController {
     const payload = {
       email: user.email,
     };
-    const token = await this.authService.signPayload(payload);
-    return { user, token };
-  }
-
-  @Post('register')
-  async register(@Body() userData: CreateUserDto) {
-    const user = await this.userService.create(userData);
-    const payload = {
-      email: user.email,
-    };
-
     const token = await this.authService.signPayload(payload);
     return { user, token };
   }

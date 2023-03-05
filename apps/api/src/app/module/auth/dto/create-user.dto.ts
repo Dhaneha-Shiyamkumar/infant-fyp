@@ -1,5 +1,11 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+
+class Attributes {
+  @ApiProperty()
+  @IsArray()
+  children: string[];
+}
 
 export class CreateUserDto {
   @ApiProperty()
@@ -21,4 +27,12 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty({ message: 'The user lastName is required' })
   lastName: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty({ message: 'The user role is required' })
+  role: string;
+
+  @ApiProperty()
+  attributes: Attributes;
 }

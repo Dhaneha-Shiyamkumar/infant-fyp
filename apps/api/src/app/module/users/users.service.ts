@@ -12,6 +12,12 @@ export class UsersService {
     @InjectModel('user') private readonly userModel: Model<UserDocument>
   ) {}
 
+  async findAll() {
+    return await this.userModel
+      .find({})
+      .select(['firstName', 'lastName', 'email', 'role', 'attributes']);
+  }
+
   async create(userData: IUserCreate) {
     const { email } = userData;
     const user = await this.userModel.findOne({ email });
