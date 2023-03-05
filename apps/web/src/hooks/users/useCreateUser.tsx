@@ -11,9 +11,8 @@ export const useCreateUser = () => {
     (data: {
       firstName: string | undefined;
       lastName: string | undefined;
+      email: string | undefined;
       role: string | undefined;
-      profileImgUrl: string | undefined;
-      phoneNumber: string | undefined;
       attributes: any;
     }) =>
       request(
@@ -27,9 +26,9 @@ export const useCreateUser = () => {
         true
       ),
     {
-      onSuccess: (data: { data: IUser }) => {
+      onSuccess: (data: IUser) => {
         queryClient.invalidateQueries({ queryKey: ['users'] });
-        toast.success(`${data.data.firstName} created successfully`);
+        toast.success(`${data.firstName} created successfully`);
       },
     }
   );
