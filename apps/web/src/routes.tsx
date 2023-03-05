@@ -1,6 +1,7 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 import DashboardLayout from './layouts/dashboard';
-import HomePage from './pages/home';
+import ChildInformationPage from './pages/child-information';
+import HomePage from './pages/dashboard';
 import LoginPage from './pages/login';
 
 export default function Router() {
@@ -11,6 +12,7 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <HomePage /> },
+        { path: 'user/:id', element: <ChildInformationPage /> },
       ],
     },
     {
