@@ -1,20 +1,21 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 import DashboardLayout from './layouts/dashboard';
 import HomePage from './pages/home';
+import LoginPage from './pages/login';
 
 export default function Router() {
   const routes = useRoutes([
     {
-      path: '/',
+      path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { path: 'app', element: <HomePage /> },
         { element: <Navigate to="/dashboard/app" />, index: true },
+        { path: 'app', element: <HomePage /> },
       ],
     },
     {
       path: 'login',
-      element: <p> login </p>,
+      element: <LoginPage />,
     },
     {
       path: '*',

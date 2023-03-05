@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import navConfig from './config';
 import useResponsive from '../../hooks/use-responsive';
+import NavSection from './section';
 
 const NAV_WIDTH = 280;
 
@@ -73,6 +74,8 @@ export default function Nav({ openNav, onCloseNav }: any) {
           </StyledAccount>
         </Link>
       </Box>
+
+      <NavSection data={navConfig} />
 
       <Box sx={{ flexGrow: 1 }} />
     </>
