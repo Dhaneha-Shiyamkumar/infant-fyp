@@ -13,6 +13,7 @@ import {
 import { Container } from '@mui/system';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import ChildEditOrCreate from '../components/create-child';
 import UserEditOrCreate from '../components/create-user';
 import { AppConfig } from '../config';
 import ChildrenTable from '../layouts/children-table';
@@ -20,11 +21,22 @@ import UserDataTable from '../layouts/user-table';
 
 const HomePage = () => {
   const [createUser, setCreateUser] = useState(false);
+  const [createChild, setCreateChild] = useState(false);
 
   return (
     <>
-      <Dialog onClose={() => setCreateUser(false)} open={createUser}>
-        <DialogTitle>Add User</DialogTitle>
+      <Dialog
+        onClose={() => {
+          if (createUser) {
+            setCreateUser(false);
+          }
+          if (createChild) {
+            setCreateChild(false);
+          }
+        }}
+        open={createUser || createChild}
+      >
+        <DialogTitle>{createUser ? 'Add User' : 'Add Child'}</DialogTitle>
         <DialogContent>
           <DialogContentText sx={{ mb: 3 }}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
@@ -32,13 +44,18 @@ const HomePage = () => {
             id tellus.
           </DialogContentText>
 
-          <UserEditOrCreate
-            firstName=""
-            lastName=""
-            // eslint-disable-next-line jsx-a11y/aria-role
-            role=""
-            attributes={{ children: [] }}
-          />
+          {createUser ? (
+            <UserEditOrCreate
+              firstName=""
+              lastName=""
+              email=""
+              // eslint-disable-next-line jsx-a11y/aria-role
+              role=""
+              attributes={{ children: [] }}
+            />
+          ) : (
+            <ChildEditOrCreate firstName="" lastName="" attributes={{}} />
+          )}
         </DialogContent>
       </Dialog>
 
@@ -57,13 +74,17 @@ const HomePage = () => {
               variant="contained"
               onClick={() => setCreateUser(true)}
             >
-              {' '}
               Add user
             </LoadingButton>
           </Grid>
 
           <Grid item xs={12} sm={6} md={6}>
-            <LoadingButton variant="contained">Add Infrants</LoadingButton>
+            <LoadingButton
+              variant="contained"
+              onClick={() => setCreateChild(true)}
+            >
+              Add Infrants
+            </LoadingButton>
           </Grid>
 
           <Grid item xs={12} md={6} lg={6}>

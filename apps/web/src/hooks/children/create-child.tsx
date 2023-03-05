@@ -1,4 +1,4 @@
-import { IUser } from '@neha-project/types';
+import { IChild, IUser } from '@neha-project/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { request } from '../../utils/request';
@@ -24,9 +24,9 @@ export const useCreateChildren = () => {
         true
       ),
     {
-      onSuccess: (data: { data: IUser }) => {
+      onSuccess: (data: IChild) => {
         queryClient.invalidateQueries({ queryKey: [REACT_QUERY_NAME] });
-        toast.success(`${data.data.firstName} created successfully`);
+        toast.success(`${data.firstName} created successfully`);
       },
     }
   );
