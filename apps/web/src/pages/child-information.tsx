@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { TabContext, TabList, TabPanel } from '@mui/lab';
 import {
   Button,
   Card,
   CardHeader,
+  CircularProgress,
   Container,
   Dialog,
   DialogContent,
@@ -9,6 +12,7 @@ import {
   DialogTitle,
   Grid,
   Stack,
+  Tab,
   Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
@@ -17,12 +21,23 @@ import ReactApexChart from 'react-apexcharts';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import ChildAttributeUpdate from '../components/child-attributes';
+import ChildDetails from '../components/child-details';
 import { AppConfig } from '../config';
+import { useChild } from '../hooks/children/use-child';
 
 const ChildInformationPage = () => {
   const [editWeight, setEditWeight] = useState(false);
   const [editHeight, setEditHeight] = useState(false);
+
+  const [value, setValue] = useState('1');
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
+
   const { id } = useParams();
+  const child = useChild(id!);
+
   return (
     <>
       <Dialog
@@ -52,100 +67,139 @@ const ChildInformationPage = () => {
       </Dialog>
 
       <Helmet>
-        <title> Dashboard | {AppConfig.name} </title>
+        <title> Dashboard | {`${child?.data?.firstName}`} </title>
       </Helmet>
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Child Information
+          Child Details of{' '}
+          {`${child?.data?.firstName} ${child?.data?.lastName}`}
         </Typography>
 
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={6}>
-            <Stack
-              direction="row"
-              justifyContent="flex-start"
-              alignItems="center"
-              spacing={2}
-            >
-              <Button variant="contained" onClick={() => setEditWeight(true)}>
-                Edit Weight
-              </Button>
+        {child.isLoading && <CircularProgress />}
+        {child.isSuccess && (
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={6}>
+              <Stack
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                spacing={2}
+              >
+                <Button variant="contained" onClick={() => setEditWeight(true)}>
+                  Edit Weight
+                </Button>
 
-              <Button variant="contained" onClick={() => setEditHeight(true)}>
-                Edit Height
-              </Button>
-            </Stack>
-          </Grid>
+                <Button variant="contained" onClick={() => setEditHeight(true)}>
+                  Edit Height
+                </Button>
+              </Stack>
+            </Grid>
 
-          <Grid item xs={12} sm={6} md={12}>
-            <Card>
-              <CardHeader
-                title={'Childs weight information'}
-                subheader={
-                  'Below the graph the nurse/ user has to update information and it has to be displayed in a table after submittting'
-                }
-              />
+            <Grid item xs={12} sm={6} md={12}>
+              <Card>
+                <CardHeader title={'Child’s information'} />
 
-              <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-                <ReactApexChart
-                  type="line"
-                  series={[
-                    {
-                      name: 'series-1',
-                      data: [30, 40, 35, 50, 49, 60, 70, 91, 125],
-                    },
-                  ]}
-                  options={{
-                    chart: {
-                      id: 'apexchart-example',
-                    },
-                    xaxis: {
-                      categories: [
-                        1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999,
-                      ],
-                    },
-                  }}
-                  height={364}
+                <Box sx={{ p: 3, pb: 1 }} dir="ltr">
+                  <TabContext value={value}>
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                      <TabList onChange={handleChange}>
+                        <Tab label="Personal Information" value="1" />
+                        <Tab label="Height vs Weight" value="2" />
+                      </TabList>
+                    </Box>
+                    <TabPanel value="1">
+                      <ChildDetails
+                        firstName={child.data.firstName}
+                        lastName={child.data.lastName}
+                        age={20}
+                      />
+                    </TabPanel>
+                    <TabPanel value="2">Item Two</TabPanel>
+                  </TabContext>
+                </Box>
+              </Card>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={12}>
+              <Card>
+                <CardHeader
+                  title={'Childs weight information'}
+                  subheader={
+                    'Below the graph the nurse/ user has to update information and it has to be displayed in a table after submittting'
+                  }
                 />
-              </Box>
-            </Card>
-          </Grid>
 
-          <Grid item xs={12} sm={6} md={12}>
-            <Card>
-              <CardHeader
-                title={'Child’s Height Information'}
-                subheader={
-                  'Below the graph the nurse/ user has to update information and it has to be displayed in a table after submittting'
-                }
-              />
+                <Box sx={{ p: 3, pb: 1 }} dir="ltr">
+                  <ReactApexChart
+                    type="line"
+                    series={[
+                      {
+                        name: 'weight (kg)',
+                        data: child.data.attributes.weight.map(
+                          ({ value }: { value: number }) => value
+                        ),
+                      },
+                    ]}
+                    options={{
+                      chart: {
+                        id: 'weight-graph',
+                      },
+                      xaxis: {
+                        categories: child.data.attributes.weight.map(
+                          ({ month }: { month: number }) => month
+                        ),
+                      },
+                      stroke: {
+                        curve: 'smooth',
+                      },
+                    }}
+                    height={364}
+                  />
+                </Box>
+              </Card>
+            </Grid>
 
-              <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-                <ReactApexChart
-                  type="line"
-                  series={[
-                    {
-                      name: 'series-1',
-                      data: [30, 40, 35, 50, 49, 60, 70, 91, 125],
-                    },
-                  ]}
-                  options={{
-                    chart: {
-                      id: 'apexchart-example',
-                    },
-                    xaxis: {
-                      categories: [
-                        1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999,
-                      ],
-                    },
-                  }}
-                  height={364}
+            <Grid item xs={12} sm={6} md={12}>
+              <Card>
+                <CardHeader
+                  title={'Child’s Height Information'}
+                  subheader={
+                    'Below the graph the nurse/ user has to update information and it has to be displayed in a table after submittting'
+                  }
                 />
-              </Box>
-            </Card>
+
+                <Box sx={{ p: 3, pb: 1 }} dir="ltr">
+                  <ReactApexChart
+                    type="line"
+                    series={[
+                      {
+                        name: 'height (kg)',
+                        data: child.data.attributes.height.map(
+                          ({ value }: { value: number }) => value
+                        ),
+                      },
+                    ]}
+                    options={{
+                      chart: {
+                        id: 'heigt-charts',
+                      },
+                      xaxis: {
+                        categories: child.data.attributes.height.map(
+                          ({ month }: { month: number }) => month
+                        ),
+                      },
+                      stroke: {
+                        curve: 'smooth',
+                      },
+                    }}
+                    height={364}
+                  />
+                </Box>
+              </Card>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </Container>
     </>
   );
