@@ -12,7 +12,7 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <HomePage /> },
-        { path: 'user/:id', element: <ChildInformationPage /> },
+        { path: 'child/:id', element: <ChildInformationPage /> },
       ],
     },
     {

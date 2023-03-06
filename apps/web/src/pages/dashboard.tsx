@@ -16,8 +16,8 @@ import { Helmet } from 'react-helmet-async';
 import ChildEditOrCreate from '../components/create-child';
 import UserEditOrCreate from '../components/create-user';
 import { AppConfig } from '../config';
-import ChildrenTable from '../layouts/children-table';
-import UserDataTable from '../layouts/user-table';
+import ChildrenTable from '../components/children-table';
+import UserDataTable from '../components/user-table';
 
 const HomePage = () => {
   const [createUser, setCreateUser] = useState(false);

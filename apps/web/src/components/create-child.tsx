@@ -2,6 +2,7 @@ import { InputLabel, Stack, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { LoadingButton } from '@mui/lab';
 import { useCreateChildren } from '../hooks/children/create-child';
+import { DEFAULT_VALUES } from './child-attributes/default';
 
 interface IEditOrCreateChild {
   id?: string;
@@ -14,6 +15,10 @@ const ChildEditOrCreate = (props: IEditOrCreateChild) => {
   const editOrCreateMutation = useCreateChildren();
 
   const handleFormSubmission = async (values: IEditOrCreateChild) => {
+    values.attributes = {
+      height: DEFAULT_VALUES,
+      weight: DEFAULT_VALUES,
+    };
     await editOrCreateMutation.mutateAsync(values);
   };
 

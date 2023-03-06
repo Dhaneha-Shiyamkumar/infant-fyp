@@ -13,6 +13,7 @@ export const useCreateUser = () => {
       lastName: string | undefined;
       email: string | undefined;
       role: string | undefined;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       attributes: any;
     }) =>
       request(

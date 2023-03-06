@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -20,5 +21,13 @@ export class ChildrenService {
 
   async create(data: any) {
     return await new this.childrenModel(data).save();
+  }
+
+  async setAttribute(id: string, attribute: string, data: any) {
+    return await this.childrenModel.findByIdAndUpdate(id, {
+      $set: {
+        [`attributes.${attribute}`]: data,
+      },
+    });
   }
 }
