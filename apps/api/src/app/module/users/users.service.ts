@@ -54,12 +54,14 @@ export class UsersService {
     firstName: string;
     lastName: string;
     password: string;
+    role: string;
   }) {
     return {
       id: user._id,
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
+      role: user.role,
     };
   }
 

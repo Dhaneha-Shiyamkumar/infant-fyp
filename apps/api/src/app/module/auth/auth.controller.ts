@@ -32,6 +32,7 @@ export class AuthController {
     const user = await this.userService.findByLogin(userLoginDto);
     const payload = {
       email: user.email,
+      role: user.role,
     };
     const token = await this.authService.signPayload(payload);
     return { user, token };

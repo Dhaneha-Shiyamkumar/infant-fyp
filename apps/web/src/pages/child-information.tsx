@@ -22,7 +22,6 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import ChildAttributeUpdate from '../components/child-attributes';
 import ChildDetails from '../components/child-details';
-import { AppConfig } from '../config';
 import { useChild } from '../hooks/children/use-child';
 
 const ChildInformationPage = () => {
