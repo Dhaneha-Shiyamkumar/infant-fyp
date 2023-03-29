@@ -10,6 +10,7 @@ import {
   IconButton,
   Popover,
 } from '@mui/material';
+import { useUserStore } from '../../store/user-store';
 
 const MENU_OPTIONS = [
   {
@@ -26,16 +27,9 @@ const MENU_OPTIONS = [
   },
 ];
 
-const account = {
-  imageUrl:
-    'https://minimal-kit-react.vercel.app/assets/images/avatars/avatar_default.jpg',
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'john@test.com',
-};
-
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
+  const { user } = useUserStore();
 
   const handleOpen = (event: any) => {
     setOpen(event.currentTarget);
@@ -66,7 +60,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar src={account.imageUrl} alt="photoURL" />
+        <Avatar alt={user?.firstName} />
       </IconButton>
 
       <Popover
@@ -90,10 +84,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.firstName}
+            {user?.firstName} {user?.lastName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {user?.email}
           </Typography>
         </Box>
 

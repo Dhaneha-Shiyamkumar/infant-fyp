@@ -15,6 +15,7 @@ import {
 import navConfig from './config';
 import useResponsive from '../../hooks/use-responsive';
 import NavSection from './section';
+import { useUserStore } from '../../store/user-store';
 
 const NAV_WIDTH = 280;
 
@@ -31,17 +32,10 @@ Nav.propTypes = {
   onCloseNav: PropTypes.func,
 };
 
-const account = {
-  imageUrl:
-    'https://minimal-kit-react.vercel.app/assets/images/avatars/avatar_default.jpg',
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'john@test.com',
-};
-
 export default function Nav({ openNav, onCloseNav }: any) {
   const { pathname } = useLocation();
 
+  const { user } = useUserStore();
   const isDesktop = useResponsive('up', 'lg');
 
   useEffect(() => {
@@ -60,15 +54,15 @@ export default function Nav({ openNav, onCloseNav }: any) {
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none">
           <StyledAccount>
-            <Avatar src={account.imageUrl} alt="photoURL" />
+            <Avatar alt="photoURL" />
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.firstName}
+                {user?.firstName} {user?.lastName}
               </Typography>
 
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                Admin
+                {user?.role}
               </Typography>
             </Box>
           </StyledAccount>
