@@ -18,10 +18,12 @@ import UserEditOrCreate from '../components/create-user';
 import { AppConfig } from '../config';
 import ChildrenTable from '../components/children-table';
 import UserDataTable from '../components/user-table';
+import { useUserStore } from '../store/user-store';
 
 const HomePage = () => {
   const [createUser, setCreateUser] = useState(false);
   const [createChild, setCreateChild] = useState(false);
+  const { user } = useUserStore();
 
   return (
     <>
@@ -69,23 +71,27 @@ const HomePage = () => {
         </Typography>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={6}>
-            <LoadingButton
-              variant="contained"
-              onClick={() => setCreateUser(true)}
-            >
-              Add user
-            </LoadingButton>
-          </Grid>
+          {user?.role === 'admin' && (
+            <>
+              <Grid item xs={12} sm={6} md={6}>
+                <LoadingButton
+                  variant="contained"
+                  onClick={() => setCreateUser(true)}
+                >
+                  Add user
+                </LoadingButton>
+              </Grid>
 
-          <Grid item xs={12} sm={6} md={6}>
-            <LoadingButton
-              variant="contained"
-              onClick={() => setCreateChild(true)}
-            >
-              Add Infrants
-            </LoadingButton>
-          </Grid>
+              <Grid item xs={12} sm={6} md={6}>
+                <LoadingButton
+                  variant="contained"
+                  onClick={() => setCreateChild(true)}
+                >
+                  Add Infrants
+                </LoadingButton>
+              </Grid>
+            </>
+          )}
 
           <Grid item xs={12} md={6} lg={6}>
             <Card>

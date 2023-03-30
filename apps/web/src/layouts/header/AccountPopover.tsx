@@ -29,7 +29,7 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
-  const { user } = useUserStore();
+  const { user, clear } = useUserStore();
 
   const handleOpen = (event: any) => {
     setOpen(event.currentTarget);
@@ -39,6 +39,10 @@ export default function AccountPopover() {
     setOpen(null);
   };
 
+  const handleLogout = () => {
+    clear();
+    window.location.reload();
+  };
   return (
     <>
       <IconButton
@@ -103,7 +107,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem sx={{ m: 1 }} onClick={handleLogout}>
           Logout
         </MenuItem>
       </Popover>
