@@ -66,8 +66,12 @@ const HomePage = () => {
       </Helmet>
 
       <Container maxWidth="xl">
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back
+        <Typography variant="h4" sx={{}}>
+          Welcome, {user?.firstName} {user?.lastName}
+        </Typography>
+
+        <Typography variant="body1" sx={{ mb: 5 }}>
+          LoggedIn as {user?.role}
         </Typography>
 
         <Grid container spacing={3}>
