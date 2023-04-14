@@ -97,22 +97,36 @@ const HomePage = () => {
             </>
           )}
 
-          <Grid item xs={12} md={6} lg={6}>
-            <Card>
-              <CardHeader title={'User information table'} />
-              <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-                <UserDataTable />
-              </Box>
-            </Card>
-          </Grid>
-          <Grid item xs={12} md={6} lg={6}>
-            <Card>
-              <CardHeader title={'Infant ID information'} />
-              <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-                <ChildrenTable />
-              </Box>
-            </Card>
-          </Grid>
+          {user?.role === 'admin' ? (
+            <>
+              <Grid item xs={12} md={6} lg={6}>
+                <Card>
+                  <CardHeader title={'User information table'} />
+                  <Box sx={{ p: 3, pb: 1 }} dir="ltr">
+                    <UserDataTable />
+                  </Box>
+                </Card>
+              </Grid>
+
+              <Grid item xs={12} md={6} lg={6}>
+                <Card>
+                  <CardHeader title={'Infant ID information'} />
+                  <Box sx={{ p: 3, pb: 1 }} dir="ltr">
+                    <ChildrenTable />
+                  </Box>
+                </Card>
+              </Grid>
+            </>
+          ) : (
+            <Grid item xs={24} md={12} lg={12}>
+              <Card>
+                <CardHeader title={'Infant ID information'} />
+                <Box sx={{ p: 3, pb: 1 }} dir="ltr">
+                  <ChildrenTable />
+                </Box>
+              </Card>
+            </Grid>
+          )}
         </Grid>
       </Container>
     </>
