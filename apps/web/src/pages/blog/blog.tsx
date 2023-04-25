@@ -1,20 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import { Grid, Button, Container, Stack, Typography } from '@mui/material';
-import posts from './__mock__';
 import Iconify from '../../components/iconify';
 import BlogPostCard from '../../components/blog/postcard';
-
-// ----------------------------------------------------------------------
-
-const SORT_OPTIONS = [
-  { value: 'latest', label: 'Latest' },
-  { value: 'popular', label: 'Popular' },
-  { value: 'oldest', label: 'Oldest' },
-];
-
-// ----------------------------------------------------------------------
+import { getPosts } from './get-posts';
+import { useLanguageStore } from '../../store/language-store';
 
 export default function BlogPage() {
+  const { lang } = useLanguageStore();
+  const posts = getPosts(lang);
   return (
     <>
       <Helmet>
@@ -31,12 +24,6 @@ export default function BlogPage() {
           <Typography variant="h4" gutterBottom>
             Blog
           </Typography>
-          <Button
-            variant="contained"
-            startIcon={<Iconify icon="eva:plus-fill" />}
-          >
-            New Post
-          </Button>
         </Stack>
 
         <Grid container spacing={3}>

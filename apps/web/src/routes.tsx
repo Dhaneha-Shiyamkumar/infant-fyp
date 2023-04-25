@@ -4,6 +4,7 @@ import BlogPage from './pages/blog/blog';
 import ChildInformationPage from './pages/child-information';
 import HomePage from './pages/dashboard';
 import LoginPage from './pages/login';
+import SettingsPage from './pages/settings/settings';
 
 export default function Router() {
   const routes = useRoutes([
@@ -14,6 +15,7 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <HomePage /> },
         { path: 'blog', element: <BlogPage /> },
+        { path: 'settings', element: <SettingsPage /> },
         { path: 'child/:id', element: <ChildInformationPage /> },
       ],
     },

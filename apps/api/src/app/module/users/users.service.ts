@@ -35,6 +35,17 @@ export class UsersService {
     return this.sanitizeUser(user);
   }
 
+  async findOneByIdChildrenPopulate(id: string): Promise<any> {
+    const user = await this.userModel.findById(id).populate({
+      path: 'attributes',
+      populate: {
+        path: 'children',
+        model: 'children',
+      },
+    });
+    return user.attributes.children;
+  }
+
   async findByLogin(loginData: UserLoginDto) {
     const { email, password } = loginData;
     const user = await this.userModel.findOne({ email });

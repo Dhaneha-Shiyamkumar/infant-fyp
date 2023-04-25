@@ -7,6 +7,10 @@ const navConfig = [
     title: 'blog',
     path: '/dashboard/blog',
   },
+  {
+    title: 'settings',
+    path: '/dashboard/settings',
+  },
 ];
 
 export default navConfig;
