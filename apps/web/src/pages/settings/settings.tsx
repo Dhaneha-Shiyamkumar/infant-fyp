@@ -43,10 +43,10 @@ export default function SettingsPage() {
               <Button
                 variant="contained"
                 sx={{ mt: 2 }}
-                color="success"
+                color={LanguagesEnum.ENGLISH == lang ? 'warning' : 'success'}
                 onClick={() => setLang(LanguagesEnum.ENGLISH)}
               >
-                Change
+                {LanguagesEnum.ENGLISH == lang ? 'Selected' : 'Change'}
               </Button>
             </Card>
 
@@ -58,10 +58,10 @@ export default function SettingsPage() {
               <Button
                 variant="contained"
                 sx={{ mt: 2 }}
-                color="success"
+                color={LanguagesEnum.SINHALA == lang ? 'warning' : 'success'}
                 onClick={() => setLang(LanguagesEnum.SINHALA)}
               >
-                Change
+                {LanguagesEnum.SINHALA == lang ? 'Selected' : 'Change'}
               </Button>
             </Card>
 
@@ -73,10 +73,10 @@ export default function SettingsPage() {
               <Button
                 variant="contained"
                 sx={{ mt: 2 }}
-                color="success"
+                color={LanguagesEnum.TAMIL == lang ? 'warning' : 'success'}
                 onClick={() => setLang(LanguagesEnum.TAMIL)}
               >
-                Change
+                {LanguagesEnum.TAMIL == lang ? 'Selected' : 'Change'}
               </Button>
             </Card>
           </Box>
