@@ -47,8 +47,22 @@ export default function Nav({ openNav, onCloseNav }: any) {
 
   const renderContent = (
     <>
-      <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <p> logo </p>
+      <Box
+        sx={{
+          px: 2.5,
+          py: 3,
+          display: 'inline-flex',
+          backgroundImage: '/logo.png',
+        }}
+      >
+        <img
+          src="/logo.jpeg"
+          alt='"logo'
+          style={{
+            height: 100,
+            marginLeft: 50,
+          }}
+        />
       </Box>
 
       <Box sx={{ mb: 5, mx: 2.5 }}>

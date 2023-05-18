@@ -6,7 +6,7 @@ import API, { REACT_QUERY_NAME } from './constraints';
 
 export const useSetAttributes = (
   childId: string,
-  attribute: 'height' | 'weight'
+  attribute: 'height' | 'weight' | 'vaccination'
 ) => {
   const queryClient = useQueryClient();
 

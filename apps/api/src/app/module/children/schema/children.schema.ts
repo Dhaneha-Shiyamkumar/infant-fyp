@@ -12,6 +12,13 @@ class Attributes {
     month: string;
     value: string;
   }[];
+
+  vaccination: {
+    month: string;
+    type: string;
+    date: string;
+    done: boolean;
+  }[];
 }
 
 @Schema()

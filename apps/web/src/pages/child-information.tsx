@@ -23,10 +23,12 @@ import { useParams } from 'react-router-dom';
 import ChildAttributeUpdate from '../components/child-attributes';
 import ChildDetails from '../components/child-details';
 import { useChild } from '../hooks/children/use-child';
+import ChildVaccinationUpdate from '../components/child-attributes/vaccination';
 
 const ChildInformationPage = () => {
   const [editWeight, setEditWeight] = useState(false);
   const [editHeight, setEditHeight] = useState(false);
+  const [vaccination, setVaccination] = useState(false);
 
   const [value, setValue] = useState('1');
 
@@ -65,6 +67,24 @@ const ChildInformationPage = () => {
         </DialogContent>
       </Dialog>
 
+      <Dialog
+        onClose={() => {
+          setVaccination(false);
+        }}
+        open={vaccination}
+      >
+        <DialogTitle>Update Vaccination Details</DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{ mb: 3 }}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+            consequat consectetur enim, sed ullamcorper leo iaculis at. Mauris
+            id tellus.
+          </DialogContentText>
+
+          <ChildVaccinationUpdate childId={id!} />
+        </DialogContent>
+      </Dialog>
+
       <Helmet>
         <title> Dashboard | {`${child?.data?.firstName}`} </title>
       </Helmet>
@@ -91,6 +111,13 @@ const ChildInformationPage = () => {
 
                 <Button variant="contained" onClick={() => setEditHeight(true)}>
                   Edit Height
+                </Button>
+
+                <Button
+                  variant="contained"
+                  onClick={() => setVaccination(true)}
+                >
+                  Edit Vaccination details
                 </Button>
               </Stack>
             </Grid>
